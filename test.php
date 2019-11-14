@@ -74,8 +74,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-body">                            
-                            <div class="ml-4">
+                        <div class="card-body"> 
+                            <div id="quiz"></div>                           
+                            <!-- <div class="ml-4">
                                 <form action="">
                                 <input id="r1" class="mt-4" type="radio" name="jawaban" value="A"><label class = "ml-2" for="r1" id=opsi_A></label><br>
                                     <input id="r2" class="mt-4" type="radio" name="jawaban" value="B"><label class = "ml-2" for="r2" id=opsi_B>aaa</label><br>
@@ -83,12 +84,13 @@
                                     <input id="r4" class="mt-4" type="radio" name="jawaban" value="D"><label class = "ml-2" for="r4" id=opsi_D>aa</label><br>
                                     <input id="r5" class="mt-4" type="radio" name="jawaban" value="E"><label class = "ml-2" for="r5" id=opsi_E>aa</label><br>
                                 </form>
-                            </div>
-
+                            </div> -->
+                            
                             <div class="card-bottom m-4">
                                 <a href="#" class="btn btn-secondary" id="prev">Kembali</a>
                                 <a href="#" class="btn btn-success" id="next">Lanjut</a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -107,6 +109,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 
     <script src="assets/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+	<script src="assets/js/quiz.js"></script>
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
     <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
