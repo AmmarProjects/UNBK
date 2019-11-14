@@ -1,5 +1,5 @@
 <?php
-    // include "getSoal.php";
+    include "getSoal.php";
     include "rsa.php";
 ?>
 <!doctype html>
@@ -74,8 +74,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-body"> 
-                            <div id="quiz"></div>                           
+                        <div class="card-body">
+                            <div id="quiz"></div>
                             <!-- <div class="ml-4">
                                 <form action="">
                                 <input id="r1" class="mt-4" type="radio" name="jawaban" value="A"><label class = "ml-2" for="r1" id=opsi_A></label><br>
@@ -85,7 +85,7 @@
                                     <input id="r5" class="mt-4" type="radio" name="jawaban" value="E"><label class = "ml-2" for="r5" id=opsi_E>aa</label><br>
                                 </form>
                             </div> -->
-                            
+
                             <div class="card-bottom m-4">
                                 <a href="#" class="btn btn-secondary" id="prev">Kembali</a>
                                 <a href="#" class="btn btn-success" id="next">Lanjut</a>
@@ -111,7 +111,112 @@
     <script src="assets/js/main.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-	<script src="assets/js/quiz.js"></script>
+    <!-- <script src="assets/js/quiz.js"></script> -->
+    <script>
+        (function () {
+            var allQuestions = [
+            <?php
+                foreach($result as $data):
+                    echo'{
+                        question: "'.decrypt($data["soal"],$private_secret_key).'",
+                        options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
+                    },';
+                endforeach;
+            ?>];
+
+            var quesCounter = 0;
+            var selectOptions = [];
+            var quizSpace = $('#quiz');
+
+            nextQuestion();
+
+            $('#next').click(function () {
+                chooseOption();
+                    quesCounter++;
+                    nextQuestion();
+            });
+
+            $('#prev').click(function () {
+                chooseOption();
+                quesCounter--;
+                nextQuestion();
+            });
+
+            function createElement(index) {
+                var element = $('<div>', {
+                    id: 'question'
+                });
+                var header = $('<p>Pertanyaan ke-' + (index + 1) + ' :</p>');
+                element.append(header);
+
+                var question = $('<h4 mt-1>').append(allQuestions[index].question);
+                element.append(question);
+
+                var radio = radioButtons(index);
+                element.append(radio);
+
+                return element;
+            }
+
+            function radioButtons(index) {
+                var radioItems = $('<ul class="m-1">');
+                var item;
+                var input = '';
+                for (var i = 0; i < allQuestions[index].options.length; i++) {
+                    item = $('<li class="mt-1 ml-4" type="A">');
+                    input = '<input type="radio" name="answer" value=' + i + ' />';
+                    input += allQuestions[index].options[i];
+                    item.append(input);
+                    radioItems.append(item);
+                }
+                return radioItems;
+            }
+
+            function chooseOption() {
+                selectOptions[quesCounter] = +$('input[name="answer"]:checked').val();
+            }
+
+            function nextQuestion() {
+                quizSpace.fadeOut(function () {
+                    $('#question').remove();
+                    if (quesCounter < allQuestions.length) {
+                        var nextQuestion = createElement(quesCounter);
+                        quizSpace.append(nextQuestion).fadeIn();
+                        if (!(isNaN(selectOptions[quesCounter]))) {
+                            $('input[value=' + selectOptions[quesCounter] + ']').prop('checked', true);
+                        }
+                        if (quesCounter === 1) {
+                            $('#prev').show();
+                        } else if (quesCounter === 0) {
+                            $('#prev').hide();
+                            $('#next').show();
+                        }
+                    } else {
+                        var scoreRslt = displayResult();
+                        quizSpace.append(scoreRslt).fadeIn();
+                        $('#next').hide();
+                        $('#prev').hide();
+                    }
+                });
+            }
+
+            // function displayResult() {
+            //   var score = $('<p>', {
+            //     id: 'question'
+            //   });
+            //   var correct = 0;
+            //   for (var i = 0; i < selectOptions.length; i++) {
+            //     if (selectOptions[i] === allQuestions[i].answer) {
+            //       correct++;
+            //     }
+            //   }
+            //   score.append('You scored ' + correct + ' out of ' + allQuestions.length);
+            //   return score;
+            // }
+
+            
+        })();
+    </script>
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
     <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>

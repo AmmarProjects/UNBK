@@ -28,7 +28,7 @@
     options: ["Gold", "Iron", "Diamond", "Platinum"]
   }, {
     question: "Used as a lubricant",
-    options: ["Graphite", "Silica", "Iron Oxide", "Diamond"]
+    options: ["Graphite", "Silica", "Iron Oxide", "Diamond"],
   }];
 
   var quesCounter = 0;
