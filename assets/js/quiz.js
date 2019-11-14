@@ -111,17 +111,25 @@
     });
   }
 
-  // function displayResult() {
-  //   var score = $('<p>', {
-  //     id: 'question'
-  //   });
-  //   var correct = 0;
-  //   for (var i = 0; i < selectOptions.length; i++) {
-  //     if (selectOptions[i] === allQuestions[i].answer) {
-  //       correct++;
-  //     }
-  //   }
-  //   score.append('You scored ' + correct + ' out of ' + allQuestions.length);
-  //   return score;
-  // }
+  function simpanKategori(){
+    var konfirmasi=confirm("Apakah Anda ingin menambah kategori tersebut?");
+    if(konfirmasi==true){
+      var nama = $("#namakategori").val();
+      var keterangan = $("#keterangankategori").val();
+      $.ajax({
+        type:"POST",
+        data:"namakat="+nama+"&keterangankat="+keterangan,
+        url:"PHP/insertkategori.php",
+        success:function(response){
+          $("#tabelkategori").html("");
+          $("#namakategori").val("");
+          $("#keterangankategori").val("");
+          $("#formtambahkategori").css("display","none");
+          tampilKategori();
+          alert(response);
+        }
+      })
+    }
+  }
+  
 })();
