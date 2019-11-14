@@ -46,7 +46,7 @@
                     <a class="navbar-brand" href="./"><img src="images/logo.svg" alt="Logo"></a>
                 </div>
 
-                <p name="siswa" id="siswa">1</p>
+                <p name="siswa" id="siswa">2</p>
                 <p name="sekolah" id="sekolah">MAN 2 MADIUN</p>
 
             </div>
