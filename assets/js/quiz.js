@@ -110,7 +110,6 @@
       }
     });
   }
-
   function simpanKategori(){
     var konfirmasi=confirm("Apakah Anda ingin menambah kategori tersebut?");
     if(konfirmasi==true){
@@ -132,4 +131,18 @@
     }
   }
   
+
+  // function displayResult() {
+  //   var score = $('<p>', {
+  //     id: 'question'
+  //   });
+  //   var correct = 0;
+  //   for (var i = 0; i < selectOptions.length; i++) {
+  //     if (selectOptions[i] === allQuestions[i].answer) {
+  //       correct++;
+  //     }
+  //   }
+  //   score.append('You scored ' + correct + ' out of ' + allQuestions.length);
+  //   return score;
+  // }
 })();
