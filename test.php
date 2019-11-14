@@ -45,16 +45,12 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./"><img src="images/logo.svg" alt="Logo"></a>
                 </div>
-
-                <p name="siswa" id="siswa">1</p>
-                <p name="sekolah" id="sekolah">MAN 2 MADIUN</p>
-
             </div>
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        <a class ="text-white" name="sekolah" id="sekolah">MAN 2 MADIUN</a>
-                        <p class ="text-white" name="siswa" id="siswa">Muhammad Nasyithul Ibad</p>
+                        <a class="text-white" name="sekolah" id="sekolah">MAN 2 MADIUN</a>
+                        <p class="text-white" name="siswa" id="siswa">Muhammad Nasyithul Ibad</p>
                     </div>
                     <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-bars"></i></button>
@@ -123,7 +119,8 @@
     <script>
         (function () {
                 var allQuestions = [ <
-                    ? php
+                    ?
+                    php
                     $numItems = count($result);
                     $x = 0;
                     foreach($result as $data) :
@@ -159,7 +156,8 @@
                 }, ';
             }
             endforeach; ?
-            > ];
+            >
+        ];
 
         var quesCounter = 0;
         var selectOptions = [];
