@@ -3,7 +3,7 @@
 
     $client = new \GuzzleHttp\Client();
     
-    $response = $client->request('GET', 'https://tugas.ammarprojects.com/Sister/CTF/api/CTF', [
+    $response = $client->request('GET', 'https://tugas.ammarprojects.com/Sister/CTF/api/CTFsoal', [
        'query' => [
            'kunci' => 'sister',
         ]

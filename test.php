@@ -45,6 +45,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./"><img src="images/logo.svg" alt="Logo"></a>
                 </div>
+
+                <p name="siswa" id="siswa">1</p>
+                <p name="sekolah" id="sekolah">MAN 2 MADIUN</p>
+
             </div>
             <div class="top-right">
                 <div class="header-menu">
@@ -110,17 +114,28 @@
 
     <script src="assets/js/main.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- <script src="assets/js/quiz.js"></script> -->
     <script>
         (function () {
             var allQuestions = [
             <?php
+                $numItems = count($result);
+                $x = 0;
                 foreach($result as $data):
-                    echo'{
-                        question: "'.decrypt($data["soal"],$private_secret_key).'",
-                        options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
-                    },';
+                    if (++$x === $numItems) {
+                        echo'{
+                            id_soal: "'.$data["id_soal"].'",
+                            question: "'.decrypt($data["soal"],$private_secret_key).'",
+                            options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
+                        }';
+                    }else{
+                        echo'{
+                            id_soal: "'.$data["id_soal"].'",
+                            question: "'.decrypt($data["soal"],$private_secret_key).'",
+                            options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
+                        },';
+                    }
                 endforeach;
             ?>];
 
@@ -146,10 +161,10 @@
                 var element = $('<div>', {
                     id: 'question'
                 });
-                var header = $('<p>Pertanyaan ke-' + (index + 1) + ' :</p>');
+                var header = $('<p>Soal ke-' + (index + 1) + ' :</p>');
                 element.append(header);
 
-                var question = $('<h4 mt-1>').append(allQuestions[index].question);
+                var question = $('<h4 class="mt-1">').append(allQuestions[index].question);
                 element.append(question);
 
                 var radio = radioButtons(index);
@@ -197,24 +212,46 @@
                         $('#next').hide();
                         $('#prev').hide();
                     }
-                });
+                });                
             }
 
-            // function displayResult() {
-            //   var score = $('<p>', {
-            //     id: 'question'
-            //   });
-            //   var correct = 0;
-            //   for (var i = 0; i < selectOptions.length; i++) {
-            //     if (selectOptions[i] === allQuestions[i].answer) {
-            //       correct++;
-            //     }
-            //   }
-            //   score.append('You scored ' + correct + ' out of ' + allQuestions.length);
-            //   return score;
-            // }
+            function simpanJawaban(soal, siswa, sekolah, jawaban) {
+                $.ajax({
+                type: "POST",
+                data: "soal=" + soal + "&siswa=" + siswa + "&sekolah=" + sekolah + "&jawaban=" + jawaban,
+                url: "../UNBK/addAnswer.php",
+                    success: function (response) {
+                        // alert("Data Anda Telah Diinput");
+                        alert(siswa);
+                    }
+                })
+            }
 
-            
+
+            function displayResult() {
+                var siswa = $("#siswa").text();
+                var sekolah = $("#sekolah").text();
+                var answ = "";
+                for (var i = 0; i < selectOptions.length; i++) {
+                if (selectOptions[i] === 0) {
+                  answ = "A";
+                }else if(selectOptions[i] === 1){
+                    answ = "B";
+                }else if(selectOptions[i] === 2){
+                    answ = "C";
+                }else if(selectOptions[i] === 3){
+                    answ = "D";
+                }else if(selectOptions[i] === 4){
+                    answ = "E";
+                }else{
+                    answ = "ERROR";
+                }
+                simpanJawaban(allQuestions[i].id_soal, siswa, sekolah, answ);
+                }
+            }
+
+
+
         })();
     </script>
 

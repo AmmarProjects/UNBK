@@ -5,31 +5,7 @@
   }, {
     question: "Electric bulb filament is made of",
     options: ["Copper", "Aluminum", "lead", "Tungsten"]
-  }, {
-    question: "Non Metal that remains liquid at room temprature is",
-    options: ["Phophorous", "Bromine", "Clorine", "Helium"]
-  }, {
-    question: "Which of the following is used in Pencils ?",
-    options: ["Graphite", "Silicon", "Charcoal", "Phosphorous"]
-  }, {
-    question: "Chemical formula of water ?",
-    options: ["NaA1O2", "H2O", "Al2O3", "CaSiO3"]
-  }, {
-    question: "The gas filled in electric bulb is ?",
-    options: ["Nitrogen", "Hydrogen", "Carbon Dioxide", "Oxygen"]
-  }, {
-    question: "Whashing soda is the comman name for",
-    options: ["Sodium Carbonate", "Calcium Bicarbonate", "Sodium Bicarbonate", "Calcium Carbonate"]
-  }, {
-    question: "Which gas is not known as green house gas ?",
-    options: ["Methane", "Nitrous oxide", "Carbon Dioxide", "Hydrogen"]
-  }, {
-    question: "The hardest substance availabe on earth is",
-    options: ["Gold", "Iron", "Diamond", "Platinum"]
-  }, {
-    question: "Used as a lubricant",
-    options: ["Graphite", "Silica", "Iron Oxide", "Diamond"],
-  }];
+  },];
 
   var quesCounter = 0;
   var selectOptions = [];
@@ -110,39 +86,25 @@
       }
     });
   }
-  function simpanKategori(){
-    var konfirmasi=confirm("Apakah Anda ingin menambah kategori tersebut?");
-    if(konfirmasi==true){
-      var nama = $("#namakategori").val();
-      var keterangan = $("#keterangankategori").val();
-      $.ajax({
-        type:"POST",
-        data:"namakat="+nama+"&keterangankat="+keterangan,
-        url:"PHP/insertkategori.php",
-        success:function(response){
-          $("#tabelkategori").html("");
-          $("#namakategori").val("");
-          $("#keterangankategori").val("");
-          $("#formtambahkategori").css("display","none");
-          tampilKategori();
-          alert(response);
-        }
-      })
+
+  function simpanJawaban(soal, siswa, sekolah, jawaban) {
+    $.ajax({
+      type: "POST",
+      data: "soal=" + soal + "&siswa=" + siswa + "&sekolah=" + sekolah + "&jawaban=" + jawaban,
+      url: "PHP/addAnswer.php",
+      success: function (response) {
+        alert("Data Anda Telah Diinput");
+      }
+    })
+  }
+
+  function displayResult() {
+    var correct = 0;
+    for (var i = 0; i < selectOptions.length; i++) {
+      // if (selectOptions[i] === allQuestions[i].answer) {
+      //   correct++;
+      // }
+      simpanJawaban(questionArray[i], siswa, sekolah, seletOption[i]);
     }
   }
-  
-
-  // function displayResult() {
-  //   var score = $('<p>', {
-  //     id: 'question'
-  //   });
-  //   var correct = 0;
-  //   for (var i = 0; i < selectOptions.length; i++) {
-  //     if (selectOptions[i] === allQuestions[i].answer) {
-  //       correct++;
-  //     }
-  //   }
-  //   score.append('You scored ' + correct + ' out of ' + allQuestions.length);
-  //   return score;
-  // }
 })();
