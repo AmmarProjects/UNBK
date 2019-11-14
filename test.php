@@ -53,6 +53,10 @@
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
+                        <a class ="text-white" name="sekolah" id="sekolah">MAN 2 MADIUN</a>
+                        <p class ="text-white" name="siswa" id="siswa">Muhammad Nasyithul Ibad</p>
+                    </div>
+                    <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-bars"></i></button>
                     </div>
 
@@ -118,137 +122,155 @@
     <!-- <script src="assets/js/quiz.js"></script> -->
     <script>
         (function () {
-            var allQuestions = [
-            <?php
-                $numItems = count($result);
-                $x = 0;
-                foreach($result as $data):
+                var allQuestions = [ <
+                    ? php
+                    $numItems = count($result);
+                    $x = 0;
+                    foreach($result as $data) :
                     if (++$x === $numItems) {
-                        echo'{
-                            id_soal: "'.$data["id_soal"].'",
-                            question: "'.decrypt($data["soal"],$private_secret_key).'",
-                            options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
-                        }';
-                    }else{
-                        echo'{
-                            id_soal: "'.$data["id_soal"].'",
-                            question: "'.decrypt($data["soal"],$private_secret_key).'",
-                            options: ["'.decrypt($data["opsi_A"],$private_secret_key).'", "'.decrypt($data["opsi_B"],$private_secret_key).'", "'.decrypt($data["opsi_C"],$private_secret_key).'", "'.decrypt($data["opsi_D"],$private_secret_key).'", "'.decrypt($data["opsi_E"],$private_secret_key).'"]
-                        },';
+                        echo '{
+                        id_soal: "'.$data["
+                        id_soal "].'",
+                            question: "'.decrypt($data["
+                        soal "],$private_secret_key).'",
+                            options: ["'.decrypt($data["
+                                opsi_A "],$private_secret_key).'", "'.decrypt($data["
+                                opsi_B "],$private_secret_key).'", "'.decrypt($data["
+                                opsi_C "],$private_secret_key).'", "'.decrypt($data["
+                                opsi_D "],$private_secret_key).'", "'.decrypt($data["
+                                opsi_E "],$private_secret_key).'"
+                            ]
                     }
-                endforeach;
-            ?>];
-
-            var quesCounter = 0;
-            var selectOptions = [];
-            var quizSpace = $('#quiz');
-
-            nextQuestion();
-
-            $('#next').click(function () {
-                chooseOption();
-                    quesCounter++;
-                    nextQuestion();
-            });
-
-            $('#prev').click(function () {
-                chooseOption();
-                quesCounter--;
-                nextQuestion();
-            });
-
-            function createElement(index) {
-                var element = $('<div>', {
-                    id: 'question'
-                });
-                var header = $('<p>Soal ke-' + (index + 1) + ' :</p>');
-                element.append(header);
-
-                var question = $('<h4 class="mt-1">').append(allQuestions[index].question);
-                element.append(question);
-
-                var radio = radioButtons(index);
-                element.append(radio);
-
-                return element;
-            }
-
-            function radioButtons(index) {
-                var radioItems = $('<ul class="m-1">');
-                var item;
-                var input = '';
-                for (var i = 0; i < allQuestions[index].options.length; i++) {
-                    item = $('<li class="mt-1 ml-4" type="A">');
-                    input = '<input type="radio" name="answer" value=' + i + ' />';
-                    input += allQuestions[index].options[i];
-                    item.append(input);
-                    radioItems.append(item);
+                    ';
                 }
-                return radioItems;
+                else {
+                    echo '{
+                    id_soal: "'.$data["
+                    id_soal "].'",
+                        question: "'.decrypt($data["
+                    soal "],$private_secret_key).'",
+                        options: ["'.decrypt($data["
+                            opsi_A "],$private_secret_key).'", "'.decrypt($data["
+                            opsi_B "],$private_secret_key).'", "'.decrypt($data["
+                            opsi_C "],$private_secret_key).'", "'.decrypt($data["
+                            opsi_D "],$private_secret_key).'", "'.decrypt($data["
+                            opsi_E "],$private_secret_key).'"
+                        ]
+                }, ';
             }
+            endforeach; ?
+            > ];
 
-            function chooseOption() {
-                selectOptions[quesCounter] = +$('input[name="answer"]:checked').val();
+        var quesCounter = 0;
+        var selectOptions = [];
+        var quizSpace = $('#quiz');
+
+        nextQuestion();
+
+        $('#next').click(function () {
+            chooseOption();
+            quesCounter++;
+            nextQuestion();
+        });
+
+        $('#prev').click(function () {
+            chooseOption();
+            quesCounter--;
+            nextQuestion();
+        });
+
+        function createElement(index) {
+            var element = $('<div>', {
+                id: 'question'
+            });
+            var header = $('<p>Soal ke-' + (index + 1) + ' :</p>');
+            element.append(header);
+
+            var question = $('<h4 class="mt-1">').append(allQuestions[index].question);
+            element.append(question);
+
+            var radio = radioButtons(index);
+            element.append(radio);
+
+            return element;
+        }
+
+        function radioButtons(index) {
+            var radioItems = $('<ul class="m-1">');
+            var item;
+            var input = '';
+            for (var i = 0; i < allQuestions[index].options.length; i++) {
+                item = $('<li class="mt-1 ml-4" type="A">');
+                input = '<input type="radio" name="answer" value=' + i + ' />';
+                input += allQuestions[index].options[i];
+                item.append(input);
+                radioItems.append(item);
             }
+            return radioItems;
+        }
 
-            function nextQuestion() {
-                quizSpace.fadeOut(function () {
-                    $('#question').remove();
-                    if (quesCounter < allQuestions.length) {
-                        var nextQuestion = createElement(quesCounter);
-                        quizSpace.append(nextQuestion).fadeIn();
-                        if (!(isNaN(selectOptions[quesCounter]))) {
-                            $('input[value=' + selectOptions[quesCounter] + ']').prop('checked', true);
-                        }
-                        if (quesCounter === 1) {
-                            $('#prev').show();
-                        } else if (quesCounter === 0) {
-                            $('#prev').hide();
-                            $('#next').show();
-                        }
-                    } else {
-                        var scoreRslt = displayResult();
-                        quizSpace.append(scoreRslt).fadeIn();
-                        $('#next').hide();
-                        $('#prev').hide();
+        function chooseOption() {
+            selectOptions[quesCounter] = +$('input[name="answer"]:checked').val();
+        }
+
+        function nextQuestion() {
+            quizSpace.fadeOut(function () {
+                $('#question').remove();
+                if (quesCounter < allQuestions.length) {
+                    var nextQuestion = createElement(quesCounter);
+                    quizSpace.append(nextQuestion).fadeIn();
+                    if (!(isNaN(selectOptions[quesCounter]))) {
+                        $('input[value=' + selectOptions[quesCounter] + ']').prop('checked', true);
                     }
-                });                
-            }
+                    if (quesCounter === 1) {
+                        $('#prev').show();
+                    } else if (quesCounter === 0) {
+                        $('#prev').hide();
+                        $('#next').show();
+                    }
+                } else {
+                    var scoreRslt = displayResult();
+                    quizSpace.append(scoreRslt).fadeIn();
+                    $('#next').hide();
+                    $('#prev').hide();
+                }
+            });
+        }
 
-            function simpanJawaban(soal, siswa, sekolah, jawaban) {
-                $.ajax({
+        function simpanJawaban(soal, siswa, sekolah, jawaban) {
+            $.ajax({
                 type: "POST",
                 data: "soal=" + soal + "&siswa=" + siswa + "&sekolah=" + sekolah + "&jawaban=" + jawaban,
                 url: "../UNBK/addAnswer.php",
-                    success: function (response) {
-                        // alert("Data Anda Telah Diinput");
-                        alert(siswa);
-                    }
-                })
-            }
+                success: function (response) {
+                    // alert("Data Anda Telah Diinput");
+                    alert(siswa);
+                }
+            })
+        }
 
 
-            function displayResult() {
-                var siswa = $("#siswa").text();
-                var sekolah = $("#sekolah").text();
-                var answ = "";
-                for (var i = 0; i < selectOptions.length; i++) {
+        function displayResult() {
+            var siswa = $("#siswa").text();
+            var sekolah = $("#sekolah").text();
+            var answ = "";
+            for (var i = 0; i < selectOptions.length; i++) {
                 if (selectOptions[i] === 0) {
-                  answ = "A";
-                }else if(selectOptions[i] === 1){
+                    answ = "A";
+                } else if (selectOptions[i] === 1) {
                     answ = "B";
-                }else if(selectOptions[i] === 2){
+                } else if (selectOptions[i] === 2) {
                     answ = "C";
-                }else if(selectOptions[i] === 3){
+                } else if (selectOptions[i] === 3) {
                     answ = "D";
-                }else if(selectOptions[i] === 4){
+                } else if (selectOptions[i] === 4) {
                     answ = "E";
-                }else{
+                } else {
                     answ = "ERROR";
                 }
                 simpanJawaban(allQuestions[i].id_soal, siswa, sekolah, answ);
-                }
             }
+        }
 
 
 
