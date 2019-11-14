@@ -110,6 +110,27 @@
       }
     });
   }
+  function simpanKategori(){
+    var konfirmasi=confirm("Apakah Anda ingin menambah kategori tersebut?");
+    if(konfirmasi==true){
+      var nama = $("#namakategori").val();
+      var keterangan = $("#keterangankategori").val();
+      $.ajax({
+        type:"POST",
+        data:"namakat="+nama+"&keterangankat="+keterangan,
+        url:"PHP/insertkategori.php",
+        success:function(response){
+          $("#tabelkategori").html("");
+          $("#namakategori").val("");
+          $("#keterangankategori").val("");
+          $("#formtambahkategori").css("display","none");
+          tampilKategori();
+          alert(response);
+        }
+      })
+    }
+  }
+  
 
   // function displayResult() {
   //   var score = $('<p>', {
