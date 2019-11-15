@@ -1,6 +1,8 @@
 <?php
     include "getSoal.php";
     include "rsa.php";
+
+    $ID_Siswa = $_GET['id'];
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -45,21 +47,19 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./"><img src="images/logo.svg" alt="Logo"></a>
                 </div>
-
-                <p name="siswa" id="siswa">2</p>
-                <p name="sekolah" id="sekolah">MAN 2 MADIUN</p>
-
             </div>
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-bars"></i></button>
                     </div>
-
+                    <p name="siswa" id="siswa" hidden><?php echo $ID_Siswa?></p>
+                    <p class="text-white mt-3" name="sekolah" id="sekolah">MAN 2 Madiun</p>
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/user.svg" alt="User Avatar">
+                            
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -80,15 +80,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div id="quiz"></div>
-                            <!-- <div class="ml-4">
-                                <form action="">
-                                <input id="r1" class="mt-4" type="radio" name="jawaban" value="A"><label class = "ml-2" for="r1" id=opsi_A></label><br>
-                                    <input id="r2" class="mt-4" type="radio" name="jawaban" value="B"><label class = "ml-2" for="r2" id=opsi_B>aaa</label><br>
-                                    <input id="r3" class="mt-4" type="radio" name="jawaban" value="C"><label class = "ml-2" for="r3" id=opsi_C>aa</label><br>
-                                    <input id="r4" class="mt-4" type="radio" name="jawaban" value="D"><label class = "ml-2" for="r4" id=opsi_D>aa</label><br>
-                                    <input id="r5" class="mt-4" type="radio" name="jawaban" value="E"><label class = "ml-2" for="r5" id=opsi_E>aa</label><br>
-                                </form>
-                            </div> -->
 
                             <div class="card-bottom m-4">
                                 <a href="#" class="btn btn-secondary" id="prev">Kembali</a>
@@ -222,7 +213,6 @@
                 url: "../UNBK/addAnswer.php",
                     success: function (response) {
                         // alert("Data Anda Telah Diinput");
-                        alert(siswa);
                     }
                 })
             }

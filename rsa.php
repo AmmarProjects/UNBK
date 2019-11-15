@@ -34,5 +34,5 @@
   // $encrypted = encrypt($original_string,$private_secret_key);
   // echo '<h3>Asli : '.$original_string.'</h3>';
   // echo '<h3>Enkripsi : '.$encrypted.'</h3>';
-  // echo '<h3>Dekripsi : '.decrypt($encrypted,$private_secret_key).'</h3>';
+  // echo '<h3>Dekripsi : '.decrypt('d31ecIrxFCdinHW1FBVw+eQC2fcdM4lx',$private_secret_key).'</h3>';
   ?>

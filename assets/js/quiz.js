@@ -30,9 +30,7 @@
   });
 
   function createElement(index) {
-    var element = $('<div>', {
-      id: 'question'
-    });
+    var element = $('<div>', {id: 'question'});
     var header = $('<p>Pertanyaan ke-' + (index + 1) + ' :</p>');
     element.append(header);
 
@@ -95,7 +93,7 @@
       success: function (response) {
         alert("Data Anda Telah Diinput");
       }
-    })
+    });
   }
 
   function displayResult() {
@@ -106,5 +104,8 @@
       // }
       simpanJawaban(questionArray[i], siswa, sekolah, seletOption[i]);
     }
+    var greet = $('<p>',{id: 'hasil'});
+    greet.append('Selamat Kamu Telah Selesai dalam Ujian ini');
+    return greet;
   }
 })();
